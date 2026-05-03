@@ -1,0 +1,7 @@
+ib_async>=1.0.3
+pandas>=2.2.0
+numpy>=1.26.0
+pytz>=2024.1
+python-dotenv>=1.0.1
+APScheduler>=3.10.4
+pandas_market_calendars>=4.4.0
