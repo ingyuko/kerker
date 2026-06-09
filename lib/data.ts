@@ -13,6 +13,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "carl-hansen-son",
     name: "Carl Hansen & Søn",
+    lat: 55.684,
+    lng: 12.587,
     zone: "City Center",
     priority: "must-go",
     tags: ["Curator Pick", "Material", "Must Go"],
@@ -36,6 +38,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "fredericia",
     name: "Fredericia",
+    lat: 55.6795,
+    lng: 12.581,
     zone: "City Center",
     priority: "must-go",
     tags: ["Curator Pick", "Material", "Must Go"],
@@ -59,6 +63,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "ark-journal",
     name: "Ark Journal",
+    lat: 55.686,
+    lng: 12.593,
     zone: "Frederiksstaden",
     priority: "must-go",
     tags: ["Curator Pick", "Yellow Nose", "Must Go"],
@@ -82,6 +88,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "composed-matter",
     name: "COMPOSED MATTER",
+    lat: 55.6845,
+    lng: 12.5955,
     zone: "Frederiksstaden",
     priority: "worth-it",
     tags: ["Material", "Curator Pick"],
@@ -105,6 +113,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "frama",
     name: "Frama",
+    lat: 55.703,
+    lng: 12.596,
     zone: "Nordhavn",
     priority: "must-go",
     tags: ["Curator Pick", "Material", "Hospitality", "Must Go"],
@@ -128,6 +138,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "la-cabra",
     name: "La Cabra",
+    lat: 55.681,
+    lng: 12.579,
     zone: "City Center",
     priority: "worth-it",
     tags: ["Hospitality", "Material"],
@@ -151,6 +163,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "kvadrat",
     name: "Kvadrat",
+    lat: 55.6875,
+    lng: 12.5905,
     zone: "Frederiksstaden",
     priority: "must-go",
     tags: ["Curator Pick", "Material", "Must Go"],
@@ -174,6 +188,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "japanmade",
     name: "Japanmade",
+    lat: 55.6905,
+    lng: 12.609,
     zone: "Refshaleøen",
     priority: "worth-it",
     tags: ["Japan", "Material", "Curator Pick"],
@@ -197,6 +213,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "dynaudio-karimoku",
     name: "Dynaudio × Karimoku",
+    lat: 55.692,
+    lng: 12.613,
     zone: "Refshaleøen",
     priority: "worth-it",
     tags: ["Japan", "Material", "Curator Pick", "Yellow Nose"],
@@ -220,6 +238,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "louis-poulsen",
     name: "Louis Poulsen",
+    lat: 55.677,
+    lng: 12.5835,
     zone: "City Center",
     priority: "must-go",
     tags: ["Lighting", "Curator Pick", "Must Go"],
@@ -243,6 +263,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "ingo-maurer",
     name: "Ingo Maurer",
+    lat: 55.6785,
+    lng: 12.576,
     zone: "City Center",
     priority: "worth-it",
     tags: ["Lighting", "Curator Pick"],
@@ -266,6 +288,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "display",
     name: "Display",
+    lat: 55.7055,
+    lng: 12.5985,
     zone: "Nordhavn",
     priority: "optional",
     tags: ["Lighting", "Material"],
@@ -289,6 +313,8 @@ export const EXHIBITIONS: Exhibition[] = [
   {
     id: "other-circle",
     name: "Other Circle",
+    lat: 55.689,
+    lng: 12.6155,
     zone: "Refshaleøen",
     priority: "optional",
     tags: ["Lighting", "Material", "Yellow Nose"],

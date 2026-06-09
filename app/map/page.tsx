@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin, Hand, LocateFixed } from "lucide-react";
 
 import { PageHeader } from "@/components/page-header";
 import { ExhibitionRow } from "@/components/exhibition-card";
+import { MapCanvas } from "@/components/map-canvas";
 import { Badge } from "@/components/ui/badge";
 import { ZONES, ZONE_LABELS } from "@/lib/types";
 import type { Zone, LocalizedText } from "@/lib/types";
@@ -10,10 +11,10 @@ import { EXHIBITIONS } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "地圖 Map · 3daysofdesign Guide",
-  description: "Explore Copenhagen design week by zone.",
+  description: "Explore Copenhagen design week on an interactive map.",
 };
 
-/** Short orientation note per zone (static for now — Maps API comes later). */
+/** Short orientation note per zone. */
 const ZONE_NOTES: Record<Zone, LocalizedText> = {
   Frederiksstaden: {
     zh: "莊重而中心,環繞阿馬林堡宮。畫廊與編輯式展示間聚集。",
@@ -33,64 +34,83 @@ const ZONE_NOTES: Record<Zone, LocalizedText> = {
   },
 };
 
+// Stable 1-based numbering shared between the map pins and the list below.
+const NUMBER_BY_ID: Record<string, number> = Object.fromEntries(
+  EXHIBITIONS.map((e, i) => [e.id, i + 1]),
+);
+
 export default function MapPage() {
   return (
     <main>
       <PageHeader
-        eyebrow="Explore by neighbourhood"
+        eyebrow="Explore on the map"
         title={{ zh: "地圖", en: "Map" }}
         description={{
-          zh: "四個區域,依步行分組。Google 地圖整合即將推出——目前先點任一站在地圖開啟。",
-          en: "Four zones, grouped for walking. Google Maps integration is coming — for now, tap any stop to open it in Maps.",
+          zh: "13 個展覽都標在地圖上。點圖釘看資訊,按右上角的定位鍵找到自己的位置。",
+          en: "All 13 exhibitions on one map. Tap a pin for details, or use the locate button to find yourself.",
         }}
       />
 
-      <div className="space-y-6 px-4 pb-4 pt-2">
+      <div className="px-4 pt-2">
+        <MapCanvas exhibitions={EXHIBITIONS} numberById={NUMBER_BY_ID} />
+
+        {/* Hints + legend */}
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink/55">
+          <span className="flex items-center gap-1">
+            <Hand className="size-3.5" strokeWidth={1.75} /> 點圖釘看資訊 Tap a pin
+          </span>
+          <span className="flex items-center gap-1">
+            <LocateFixed className="size-3.5" strokeWidth={1.75} /> 右上角定位 Locate me
+          </span>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink/55">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-full bg-[#C8553D]" /> 必去 Must Go
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-full bg-[#222222]" /> 值得去 Worth It
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-full bg-[#8C857A]" /> 可選 Optional
+          </span>
+        </div>
+      </div>
+
+      {/* Zone-grouped index, numbered to match the pins */}
+      <div className="space-y-6 px-4 pb-4 pt-5">
         {ZONES.map((zone) => {
           const inZone = EXHIBITIONS.filter((e) => e.zone === zone);
-          const mapsQuery = encodeURIComponent(`${zone}, Copenhagen`);
           const label = ZONE_LABELS[zone];
 
           return (
             <section key={zone} aria-labelledby={`zone-${zone}`}>
-              <div className="rounded-lg border border-line bg-paper p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h2
-                      id={`zone-${zone}`}
-                      className="flex items-center gap-1.5 font-serif text-2xl leading-tight"
-                    >
-                      <MapPin className="size-5 shrink-0 text-ink/50" strokeWidth={1.5} />
-                      {label.zh}
-                      <span className="text-base text-ink/50">{label.en}</span>
-                    </h2>
-                    <p className="mt-2 max-w-prose text-[0.9rem] leading-relaxed text-ink/70" lang="zh-Hant">
-                      {ZONE_NOTES[zone].zh}
-                    </p>
-                    <p className="mt-1 max-w-prose text-[0.8rem] leading-relaxed text-ink/45" lang="en">
-                      {ZONE_NOTES[zone].en}
-                    </p>
-                  </div>
-                  <Badge variant="outline" className="shrink-0">
-                    {inZone.length}
-                  </Badge>
-                </div>
-
-                {/* Static map placeholder strip */}
-                <a
-                  href={`https://maps.google.com/?q=${mapsQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 flex h-24 items-center justify-center gap-2 rounded-md border border-dashed border-line bg-[#ECE7DC] text-center text-sm font-medium text-ink/50 transition-colors hover:text-ink/70"
+              <div className="flex items-center justify-between gap-3 border-b border-line pb-2">
+                <h2
+                  id={`zone-${zone}`}
+                  className="flex items-center gap-1.5 font-serif text-xl leading-tight"
                 >
-                  <Navigation className="size-4 shrink-0" strokeWidth={1.5} />
-                  在 Google 地圖開啟{label.zh} · Open in Maps
-                </a>
+                  <MapPin className="size-4 shrink-0 text-ink/50" strokeWidth={1.5} />
+                  {label.zh}
+                  <span className="text-sm text-ink/50">{label.en}</span>
+                </h2>
+                <Badge variant="outline" className="shrink-0">
+                  {inZone.length}
+                </Badge>
               </div>
+              <p className="mt-2 max-w-prose text-[0.85rem] leading-relaxed text-ink/65">
+                {ZONE_NOTES[zone].zh}
+              </p>
 
               <div className="mt-3 space-y-3">
                 {inZone.map((e) => (
-                  <ExhibitionRow key={e.id} exhibition={e} />
+                  <div key={e.id} className="flex items-stretch gap-2">
+                    <span className="mt-3 flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-semibold text-sand">
+                      {NUMBER_BY_ID[e.id]}
+                    </span>
+                    <div className="flex-1">
+                      <ExhibitionRow exhibition={e} />
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>
