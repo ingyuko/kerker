@@ -12,11 +12,11 @@ export default function PlannerPage() {
   return (
     <main>
       <PageHeader
-        eyebrow="Three days, three themes"
+        eyebrow="6/10 – 6/12 · Copenhagen"
         title={{ zh: "行程規劃", en: "Planner" }}
         description={{
-          zh: "每一天的建議路線。可步行、有主題,並以一次逛一個區域的節奏安排。",
-          en: "A suggested route for each day. Walkable, themed, and paced for one neighbourhood at a time.",
+          zh: "你的三天既定行程,含時間、餐食與特別活動。點站點旁的箭頭可開啟地圖。",
+          en: "Your fixed three-day itinerary with times, meals, and special events. Tap the arrow by a stop to open it in Maps.",
         }}
       />
       <PlannerTabs />
