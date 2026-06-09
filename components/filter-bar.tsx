@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { TAG_FILTERS, ZONE_FILTERS } from "@/lib/types";
+import { TAG_FILTERS, ZONE_FILTERS, TAG_LABELS, ZONE_LABELS } from "@/lib/types";
 import type { TagFilter, ZoneFilter } from "@/lib/types";
+import { BiInline } from "@/components/bi";
 
 function Chip({
   active,
@@ -51,7 +52,7 @@ export function FilterBar({
             active={selectedTags.includes(tag)}
             onClick={() => onToggleTag(tag)}
           >
-            {tag}
+            <BiInline text={TAG_LABELS[tag]} />
           </Chip>
         ))}
       </div>
@@ -64,7 +65,7 @@ export function FilterBar({
             active={selectedZone === zone}
             onClick={() => onSelectZone(zone)}
           >
-            {zone}
+            <BiInline text={ZONE_LABELS[zone]} />
           </Chip>
         ))}
       </div>

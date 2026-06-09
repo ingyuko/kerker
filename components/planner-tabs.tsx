@@ -13,7 +13,8 @@ export function PlannerTabs() {
       <TabsList>
         {PLANNER_DAYS.map((day) => (
           <TabsTrigger key={day.id} value={day.id}>
-            {day.label}
+            {day.label.zh}
+            <span className="ml-1 text-[0.7em] opacity-70">{day.label.en}</span>
           </TabsTrigger>
         ))}
       </TabsList>
@@ -27,13 +28,25 @@ export function PlannerTabs() {
           <TabsContent key={day.id} value={day.id}>
             <div className="rounded-lg border border-line bg-paper p-4">
               <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-ink/45">
-                {day.label} · {exhibitions.length} stops
+                {day.label.zh} · {exhibitions.length} 站 · {day.label.en}
               </p>
               <h2 className="mt-1 font-serif text-2xl leading-tight">
-                {day.theme}
+                {day.theme.zh}
+                <span className="ml-2 text-base text-ink/50">
+                  {day.theme.en}
+                </span>
               </h2>
-              <p className="mt-2 text-[0.95rem] leading-relaxed text-ink/65">
-                {day.description}
+              <p
+                className="mt-2 text-[0.95rem] leading-relaxed text-ink/75"
+                lang="zh-Hant"
+              >
+                {day.description.zh}
+              </p>
+              <p
+                className="mt-1 text-[0.85rem] leading-relaxed text-ink/50"
+                lang="en"
+              >
+                {day.description.en}
               </p>
             </div>
 
@@ -58,7 +71,7 @@ export function PlannerTabs() {
 
             <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-ink/45">
               <MapPin className="size-3.5" strokeWidth={1.75} />
-              Tap a stop to open it in Maps
+              點任一站可在地圖開啟 · Tap a stop to open it in Maps
             </p>
           </TabsContent>
         );

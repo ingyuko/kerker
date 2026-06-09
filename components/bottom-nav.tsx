@@ -7,10 +7,10 @@ import { Home, CalendarDays, Map, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
-  { href: "/", label: "Browse", icon: Home },
-  { href: "/planner", label: "Planner", icon: CalendarDays },
-  { href: "/map", label: "Map", icon: Map },
-  { href: "/saved", label: "Saved", icon: Heart },
+  { href: "/", key: "browse", zh: "瀏覽", en: "Browse", icon: Home },
+  { href: "/planner", key: "planner", zh: "行程", en: "Planner", icon: CalendarDays },
+  { href: "/map", key: "map", zh: "地圖", en: "Map", icon: Map },
+  { href: "/saved", key: "saved", zh: "收藏", en: "Saved", icon: Heart },
 ] as const;
 
 export function BottomNav() {
@@ -23,7 +23,7 @@ export function BottomNav() {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <ul className="mx-auto flex max-w-2xl items-stretch justify-around">
-        {ITEMS.map(({ href, label, icon: Icon }) => {
+        {ITEMS.map(({ href, key, zh, en, icon: Icon }) => {
           const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
           return (
             <li key={href} className="flex-1">
@@ -31,16 +31,21 @@ export function BottomNav() {
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex h-16 flex-col items-center justify-center gap-1 text-[0.7rem] font-medium transition-colors",
+                  "flex h-16 flex-col items-center justify-center gap-1 transition-colors",
                   active ? "text-ink" : "text-ink/45 hover:text-ink/70",
                 )}
               >
                 <Icon
                   className="size-5"
                   strokeWidth={active ? 2 : 1.5}
-                  fill={active && label === "Saved" ? "currentColor" : "none"}
+                  fill={active && key === "saved" ? "currentColor" : "none"}
                 />
-                {label}
+                <span className="text-[0.7rem] font-medium leading-none">
+                  {zh}
+                </span>
+                <span className="text-[0.55rem] leading-none opacity-70">
+                  {en}
+                </span>
               </Link>
             </li>
           );
