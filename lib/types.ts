@@ -21,6 +21,9 @@ export interface Exhibition {
   tags: string[];
   /** Image URLs. Placeholders for now — no real images yet. */
   images: string[];
+  /** Approximate location in Copenhagen, for the interactive map. */
+  lat: number;
+  lng: number;
   about: LocalizedText;
   whyGo: LocalizedText;
   whatToLookFor: LocalizedText;
