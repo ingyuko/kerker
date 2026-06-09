@@ -53,7 +53,7 @@ export const EXHIBITIONS: Exhibition[] = [
       en: "A masterclass in how a heritage brand stays current without diluting its archive. The styling alone is worth the visit for designers building moodboards.",
     },
     whatToLookFor: {
-      zh: "西班牙椅上的新織品聯名,以及展間從日光過渡到傴晚低照度時的氛圍變化。",
+      zh: "西班牙椅上的新織品聯名,以及展間從日光過渡到傍晚低照度時的氛圍變化。",
       en: "New textile collaborations on the Spanish Chair, and how the room transitions from warm daylight to low evening lighting.",
     },
     websiteUrl: "https://fredericia.com",
@@ -99,7 +99,7 @@ export const EXHIBITIONS: Exhibition[] = [
       en: "A curated group show on material honesty — ceramicists, stone workers, and textile makers presenting raw and finished states side by side.",
     },
     whyGo: {
-      zh: "理解「材質即叙事」最好的單一站點。每位創作者展示的是過程,而不只是結果。",
+      zh: "理解「材質即敘事」最好的單一站點。每位創作者展示的是過程,而不只是結果。",
       en: "The best single stop to understand material as narrative. Each maker shows their process, not just the result.",
     },
     whatToLookFor: {
@@ -128,7 +128,7 @@ export const EXHIBITIONS: Exhibition[] = [
       en: "The single most photographed interior in Copenhagen design, and one of the rare places where the brand world is fully resolved — furniture, scent, food, and architecture in one room.",
     },
     whatToLookFor: {
-      zh: "養色黃銅與洞石的細節、藥房式香氛吧台,以及新作如何映襗在帶歲月感的牆面前。",
+      zh: "養色黃銅與洞石的細節、藥房式香氛吧台,以及新作如何映襯在帶歲月感的牆面前。",
       en: "The aged-brass and travertine detailing, the Apothecary fragrance bar, and how the new pieces sit against the patinated walls.",
     },
     websiteUrl: "https://framacph.com",
@@ -149,7 +149,7 @@ export const EXHIBITIONS: Exhibition[] = [
       en: "The Aarhus-born roaster brings its light-roast, design-forward coffee to a festival pop-up. Expect a minimal bar build and a rotating single-origin menu.",
     },
     whyGo: {
-      zh: "長時間徒步日裡最聪明的補給站,也是「款待即設計」的乾淨示範——杯子、吧台、排隊動線都經過考量。",
+      zh: "長時間徒步日裡最聰明的補給站,也是「款待即設計」的乾淨示範——杯子、吧台、排隊動線都經過考量。",
       en: "The smartest fuel stop on a long walking day, and a clean example of hospitality-as-design — the cup, the counter, and the queue are all considered.",
     },
     whatToLookFor: {
@@ -245,11 +245,11 @@ export const EXHIBITIONS: Exhibition[] = [
     tags: ["Lighting", "Curator Pick", "Must Go"],
     images: ["placeholder-1", "placeholder-2", "placeholder-3"],
     about: {
-      zh: "成就 Poul Henningsen PH 系列燈具的照明世家,推出新燈款與一兩件復刻,並刻意佈置成在黃昏時展現其招牌的無眨光照明。",
+      zh: "成就 Poul Henningsen PH 系列燈具的照明世家,推出新燈款與一兩件復刻,並刻意佈置成在黃昏時展現其招牌的無眩光照明。",
       en: "The lighting house behind Poul Henningsen's PH lamps presents new fixtures and a reissue or two, staged to show its signature glare-free light at dusk.",
     },
     whyGo: {
-      zh: "最具代表性的丹麥照明宣言。在受控環境裡看見 PH 原則——無眨光的光——被完整示範,值得你為它安排一整個傴晚。",
+      zh: "最具代表性的丹麥照明宣言。在受控環境裡看見 PH 原則——無眩光的光——被完整示範,值得你為它安排一整個傍晚。",
       en: "The definitive Danish lighting statement. Seeing the PH principle — light without glare — demonstrated in a controlled setting is worth planning your evening around.",
     },
     whatToLookFor: {
@@ -328,7 +328,7 @@ export const EXHIBITIONS: Exhibition[] = [
       en: "The right way to end a day on Refshaleøen — atmospheric, social, and unhurried, with the best light at golden hour over the water.",
     },
     whatToLookFor: {
-      zh: "整個傴晚自然光與人造光的交織,以及專為設計節製作的限量物件。",
+      zh: "整個傍晚自然光與人造光的交織,以及專為設計節製作的限量物件。",
       en: "The interplay of natural and artificial light through the evening, and the limited objects produced just for the festival.",
     },
     websiteUrl: "https://www.3daysofdesign.dk",
