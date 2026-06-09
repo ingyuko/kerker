@@ -18,14 +18,14 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Ingyu's 3daysofdesign Guide",
+  title: "Ingyu 的 3daysofdesign 設計週指南",
   description:
-    "A personal, mobile-first design guide for Copenhagen 3daysofdesign — discover exhibitions, filter by interest, plan daily routes, and save favorites.",
+    "哥本哈根 3daysofdesign 個人行動指南 — 探索展覽、依興趣篩選、規劃每日路線、收藏最愛。A personal, mobile-first design guide for Copenhagen 3daysofdesign.",
   applicationName: "3daysofdesign Guide",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "3dod Guide",
+    title: "3dod 指南",
   },
 };
 
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="zh-Hant" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="font-sans">
         {/* App is mobile-first; constrain width on larger screens. */}
         <div className="mx-auto min-h-screen max-w-2xl bg-sand pb-20">
