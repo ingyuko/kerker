@@ -335,6 +335,31 @@ export const EXHIBITIONS: Exhibition[] = [
     eventUrl: "https://www.3daysofdesign.dk",
     mapUrl: "https://maps.google.com/?q=Refshale%C3%B8en+Copenhagen",
   },
+  {
+    id: "aarticles",
+    name: "aarticles",
+    lat: 55.6725,
+    lng: 12.5915,
+    zone: "City Center",
+    priority: "must-go",
+    tags: ["Yellow Nose", "Curator Pick", "Material", "Must Go"],
+    images: ["placeholder-1", "placeholder-2", "placeholder-3"],
+    about: {
+      zh: "由 Fred Aartun(Frama 創意總監)與 Kasia Sznajder 共同創立的哥本哈根藝廊兼選物平台。以檔案式的眼光,把老博物館的編目與書冊系統轉譯成當代數位選物,聚焦工藝導向的家具與生活物件。據點就在 Christianshavn 運河旁的公寓工作室。",
+      en: "A Copenhagen gallery-marketplace co-founded by Fred Aartun (Head of Creative at Frama) and Kasia Sznajder. With an archival eye, it translates the cataloguing systems of old museums and books into a contemporary digital marketplace, focused on craft-driven furniture and objects. Based in their apartment-studio by the Christianshavn canals.",
+    },
+    whyGo: {
+      zh: "Yellow Nose 特別推薦的一站。小而精、策展眼光極好,是理解「物件如何被收藏與述說」的最佳範例——而且主理人本身就在 Frama 的設計脈絡裡。",
+      en: "A Yellow Nose top pick. Small, sharp, and impeccably curated — the best place to understand how objects are collected and narrated, from people working right inside Frama's design world.",
+    },
+    whatToLookFor: {
+      zh: "單件物品的陳列與並置方式、檔案式的說明卡,以及空間如何像一間會呼吸的公寓、而非展示間。",
+      en: "How single pieces are placed and paired, the archival-style captions, and how the space feels like a living apartment rather than a showroom.",
+    },
+    websiteUrl: "https://www.3daysofdesign.dk/exhibitions/69e2133b4b3272beadf8875d",
+    eventUrl: "https://www.3daysofdesign.dk/exhibitions/69e2133b4b3272beadf8875d",
+    mapUrl: "https://maps.google.com/?q=Christianshavn%2C+Copenhagen",
+  },
 ];
 
 /** Fast lookup by id, used by the Planner page. */
