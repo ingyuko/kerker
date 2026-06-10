@@ -41,6 +41,9 @@ state/
 .env.local
 .env*.local
 
+# --- Claude Code (local scratch / agent worktrees) ---
+.claude/
+
 # --- Misc ---
 *.log
 logs/
