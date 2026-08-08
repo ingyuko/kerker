@@ -16,6 +16,9 @@ const ITEMS = [
 export function BottomNav() {
   const pathname = usePathname();
 
+  // The options tracker is a separate app under /options with its own nav.
+  if (pathname.startsWith("/options")) return null;
+
   return (
     <nav
       aria-label="Primary"

@@ -26,6 +26,13 @@ const config: Config = {
         border: "#DDD8CF",
         muted: "#8C857A",
         accent: "#222222",
+        // P&L colours follow thinkorswim: green for gains, red for losses.
+        // This exact pair clears colour-vision-deficiency separation (ΔE 8.1
+        // protan) against the sand surface; naive green/red does not. Charts
+        // still pair it with sign and bar direction so colour is never the
+        // only signal.
+        profit: "#137A55",
+        loss: "#C4451C",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
