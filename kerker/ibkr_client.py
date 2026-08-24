@@ -8,12 +8,17 @@ from typing import Iterable
 from ib_async import (
     IB,
     BarData,
+    BarDataList,
     ComboLeg,
+    ContFuture,
     Contract,
+    Future,
     Index,
     LimitOrder,
+    MarketOrder,
     Option,
     Stock,
+    StopOrder,
     Ticker,
     Trade,
 )
@@ -77,6 +82,132 @@ class IBKRClient:
         if len(bars) < 2:
             raise RuntimeError(f"not enough bars to compute prev close for {contract.symbol}")
         return float(bars[-2].close)
+
+    # ----- futures (intraday bot) -----
+
+    async def qualify_front_future(self, symbol: str, exchange: str = "CME") -> Future:
+        """Resolve the current front-month future via the continuous contract."""
+        cont = ContFuture(symbol, exchange, currency="USD")
+        await self.ib.qualifyContractsAsync(cont)
+        if not cont.conId:
+            raise RuntimeError(f"could not qualify continuous future {symbol}@{exchange}")
+        fut = Future(conId=cont.conId, exchange=exchange, currency="USD")
+        await self.ib.qualifyContractsAsync(fut)
+        if not fut.conId:
+            raise RuntimeError(f"could not qualify front-month future for {symbol}")
+        log.info("front future: %s %s conId=%s", fut.localSymbol, fut.lastTradeDateOrContractMonth, fut.conId)
+        return fut
+
+    async def streaming_bars(
+        self,
+        contract: Contract,
+        duration: str,
+        bar_size: str,
+        use_rth: bool,
+    ) -> BarDataList:
+        """Historical bars that keep updating in real time (keepUpToDate)."""
+        bars = await self.ib.reqHistoricalDataAsync(
+            contract,
+            endDateTime="",
+            durationStr=duration,
+            barSizeSetting=bar_size,
+            whatToShow="TRADES",
+            useRTH=use_rth,
+            formatDate=2,
+            keepUpToDate=True,
+        )
+        if not bars:
+            raise RuntimeError(f"no historical bars for {contract.localSymbol or contract.symbol}")
+        return bars
+
+    async def place_bracket(
+        self,
+        contract: Contract,
+        action: str,  # "BUY" to open long, "SELL" to open short
+        quantity: int,
+        stop_price: float,
+        target_price: float,
+        order_ref: str,
+    ) -> tuple[Trade, Trade, Trade]:
+        """Market entry with an attached stop-loss and take-profit.
+
+        The two children share the parent, so IBKR cancels one when the
+        other fills (native OCA behaviour of bracket orders).
+        """
+        reverse = "SELL" if action == "BUY" else "BUY"
+
+        parent = MarketOrder(action, quantity)
+        parent.orderId = self.ib.client.getReqId()
+        parent.transmit = False
+        parent.orderRef = order_ref
+
+        take_profit = LimitOrder(reverse, quantity, round(target_price, 2))
+        take_profit.orderId = self.ib.client.getReqId()
+        take_profit.parentId = parent.orderId
+        take_profit.transmit = False
+        take_profit.orderRef = f"{order_ref}-TP"
+
+        stop_loss = StopOrder(reverse, quantity, round(stop_price, 2))
+        stop_loss.orderId = self.ib.client.getReqId()
+        stop_loss.parentId = parent.orderId
+        stop_loss.transmit = True  # transmitting the last child sends all three
+        stop_loss.orderRef = f"{order_ref}-SL"
+
+        for order in (parent, take_profit, stop_loss):
+            order.tif = "DAY"
+            if self.cfg.account:
+                order.account = self.cfg.account
+
+        parent_trade = self.ib.placeOrder(contract, parent)
+        tp_trade = self.ib.placeOrder(contract, take_profit)
+        sl_trade = self.ib.placeOrder(contract, stop_loss)
+
+        for _ in range(40):
+            await asyncio.sleep(0.25)
+            if parent_trade.orderStatus.status in {"Filled", "Cancelled", "Inactive"}:
+                break
+        log.info(
+            "bracket %s: parent=%s tp=%s sl=%s",
+            order_ref,
+            parent_trade.orderStatus.status,
+            tp_trade.orderStatus.status,
+            sl_trade.orderStatus.status,
+        )
+        return parent_trade, tp_trade, sl_trade
+
+    async def close_position_market(self, contract: Contract, position: int, order_ref: str) -> Trade | None:
+        """Flatten ``position`` (signed contracts) with a market order."""
+        if position == 0:
+            return None
+        action = "SELL" if position > 0 else "BUY"
+        order = MarketOrder(action, abs(position))
+        order.orderRef = order_ref
+        order.tif = "DAY"
+        if self.cfg.account:
+            order.account = self.cfg.account
+        trade = self.ib.placeOrder(contract, order)
+        for _ in range(40):
+            await asyncio.sleep(0.25)
+            if trade.orderStatus.status in {"Filled", "Cancelled", "Inactive"}:
+                break
+        log.info("close %s status=%s", order_ref, trade.orderStatus.status)
+        return trade
+
+    async def cancel_open_orders(self, contract: Contract) -> None:
+        for trade in list(self.ib.openTrades()):
+            if trade.contract.conId == contract.conId and trade.orderStatus.status not in {
+                "Filled",
+                "Cancelled",
+                "Inactive",
+            }:
+                self.ib.cancelOrder(trade.order)
+        await asyncio.sleep(0.5)
+
+    def position_for(self, contract: Contract) -> int:
+        for pos in self.ib.positions():
+            if pos.contract.conId == contract.conId:
+                return int(pos.position)
+        return 0
 
     # ----- option chain -----
 
