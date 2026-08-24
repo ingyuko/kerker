@@ -101,3 +101,21 @@ Louis Poulsen, Ingo Maurer, Display, and Other Circle.
 
 Google Maps API, route optimization, AI recommendations, calendar sync,
 ticket reservations, and user accounts are intentionally out of scope.
+
+## Trading bots (Python, `kerker/`)
+
+This repo also hosts IBKR trading bots, unrelated to the web app:
+
+- **Bull put spread bot** — `python -m kerker once|daemon` (SPY credit
+  spreads, VIX/trend filtered).
+- **Intraday TTM Squeeze bot** — `python -m kerker intraday` /
+  `python -m kerker backtest`. Multiple entries/exits per day on CME
+  futures (MES/ES) using TTM Squeeze + MACD + RSI/VWAP with ATR bracket
+  exits and daily loss limits. Dry-run by default. See
+  [docs/INTRADAY_BOT.md](docs/INTRADAY_BOT.md) (繁體中文).
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env
+python -m pytest tests/   # strategy + indicator + backtest tests
+```
